@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<style>
+
+</style>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Default Title{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>{% include 'generic/navbar.html' %}</nav>
+    </header>
+    {% block content %} 
+    {% endblock %}
+</body>
+</html>

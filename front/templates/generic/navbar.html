@@ -1,0 +1,62 @@
+<style>
+    /* Set background color of navbar */
+    .navbar {
+      background-color: rgb(20, 97, 180);
+    }
+    
+    /* Set color of text in navbar */
+    .navbar a {
+      color: #fff;
+    }
+  </style>
+  
+  <style>
+    /* Set color of text in navbar */
+    .navbar{
+      background-color: rgb(20, 97, 180);
+      color: #fff;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  
+    body{
+    margin: 0;
+  }
+  
+  .navlink{
+    color: white;
+    font-size: 2rem;
+    font-family: Helvetica;
+    text-decoration:none;
+    margin: 0 30px;
+  }
+  
+  .right{
+    margin-left: auto;
+  }
+  </style>
+  
+  <nav class="navbar navbar-expand-lg">
+      <a class="navlink" href="/">
+          HOME
+          <img src="" style = "width: 160px;height: auto;" class = "main">  
+      </a>
+      
+      <a href="#" class="navlink">About</a>
+      <a href="sign-out" class="navlink">Contact</a>
+      <div class="right">
+        {% if logged_in %}
+          <a href="profile" class="navlink">Profile</a>
+          <a href="sign-out" class="navlink">Sign Out</a>
+        {% else %}
+          <a href="login" class="navlink">Log In</a>
+          <a href="create-user" class="navlink">Sign Up</a>
+        {% endif %}
+      </div>
+      
+  </nav>
+  
+  
