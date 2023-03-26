@@ -1,0 +1,141 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+
+<head>
+    <title>Event Dashboard</title>
+    <style>
+        /* Style the event card container */
+        .event-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+            gap: 20px;
+            margin: 20px;
+        }
+
+        /* Style the event card */
+        .event-card {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            height: 245px;
+            width: 300px;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        /* Style the event image */
+        .event-image {
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 10px;
+        }
+
+        /* Style the event title */
+        .event-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-decoration:none;
+        }
+
+        /* Style the event rating */
+        .event-rating {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Style the event location */
+        .event-location {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Style the event participants */
+        .event-participants {
+            font-size: 14px;
+        }
+
+        /* CSS */
+        .content-link {
+            background-color: #290651;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            height: 40px;
+            line-height: 20px;
+            list-style: none;
+            margin: 0;
+            margin-top: 2%;
+            margin-left: 70%;
+            outline: none;
+            padding: 10px 16px;
+            position: relative;
+            text-align: center;
+            transition: color 100ms;
+            vertical-align: baseline;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .content-link:hover,
+        .content-link:focus {
+            background-color: rgb(82, 16, 175);
+        }
+
+        .event-title,
+        .event-rating,
+        .event-location,
+        .event-participants{
+            text-decoration:none;
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="POST">
+        <a href="event-create" name="open-event-create" class="content-link" style="text-decoration:none;">Add Event</a>
+    </form>
+    <div class="event-card-container">
+        {% for values in event_list %}
+        <a href="{% url 'event_detail' event_id=values.id %}" name="card-link" id="card-{{ values.id }}" style="text-decoration:none;">
+            <div class="event-card" id="{{ values.id }}" name="card">
+                {% load static %}
+                <div class="event-image" style="background-image: url({% static 'random.jpg' %})"></div>
+                <div class="event-title" >{{ values.title }}</div>
+                <div class="event-rating">Rating: {{ values.rating }}/5</div>
+                <div class="event-location">Location: {{ values.location }}</div>
+                <div class="event-participants"> {{ values.participators }} people are going</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+
+</body>
+
+<script>
+    /*let elements = document.getElementsByName("card-link");
+    elements.forEach(e => e.addEventListener("click", () => myFunc(e))
+    );
+    function myFunc(e){
+        const newUrl = window.location.origin + "events/" + e.id.substring(5);
+        console.log(newUrl);
+        navigator.clipboard.writeText("test");
+    }*/
+</script>
+
+{% endblock %}
+

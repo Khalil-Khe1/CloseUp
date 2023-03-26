@@ -33,19 +33,28 @@ class Event(models.Model):
     category = models.CharField(max_length=50, default="")
     start_time = models.DateField()
     end_time = models.DateField()
-    registration_deadline = models.IntegerField(default=None)
+    registration_deadline = models.DateField()
     location = models.CharField(max_length=50)
     organizer = models.ForeignKey(User, on_delete=models.CASCADE)
-    state = models.CharField(max_length=50, default="open")
+    state = models.CharField(max_length=20, default="open")
     participators = models.IntegerField(default=0)
     images = models.CharField(max_length=1000, default="")
+
+class Discussion(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    images = models.CharField(max_length=1000, default="")
+    item_type = models.CharField(max_length=50) #Announcement(Starter + Organizer), Starter, Reply 
+    timestamp = models.TimeField()
 
 class Ticket(models.Model):
     id = models.AutoField(primary_key=True)
     event = models.ForeignKey(Event, on_delete=models.PROTECT)
     attendee = models.ForeignKey(User, on_delete=models.PROTECT)
     price = models.FloatField()
-    status = models.CharField(max_length=50, default=None)
+    #status = models.CharField(max_length=50, default=None)
 
 class Review(models.Model):
     id = models.AutoField(primary_key=True)

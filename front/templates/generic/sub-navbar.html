@@ -1,0 +1,44 @@
+<style>
+    /* Set color of text in subnavbar */
+    .subnavbar {
+        background-color: rgb(230, 230, 230);
+        color: #fff;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        justify-content: flex-start;
+        align-items: center;
+        border: 1px solid #8c8c8c;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    .sub-link {
+        color: rgb(51, 51, 51);
+        font-size: 1rem;
+        font-family: Helvetica;
+        text-decoration: none;
+        margin: 0 30px;
+    }
+
+    .sub-container{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+</style>
+
+<nav class="subnavbar">
+    <div class="sub-container">
+        <a href="{% url 'event_detail' event_id=item_id %}" class="sub-link">Info</a>
+        <a href="#" class="sub-link">Announcements</a>
+        <a href="{% url 'event_discussion' event_id=item_id %}" class="sub-link">Discussion</a>
+        <a href="#" class="sub-link">Particiapnts</a>
+    </div>
+</nav>

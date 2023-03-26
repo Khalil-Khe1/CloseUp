@@ -1,0 +1,147 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+
+<style>
+    .discussion-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post {
+        height: auto;
+        width: 550px;
+        margin-top: 2%;
+        margin-left: calc(50% - 300px);
+        border: 2px solid black;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-header {
+        height: 60px;
+        width: 400px;
+        display: flex;
+        margin-top: 2%;
+    }
+
+    .post-content {
+        display: flex;
+        flex-direction: column;
+        padding: 5px 10px 5px 10px;
+    }
+
+    .post-img {
+        margin-top: 5%;
+        height: 600px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .upvote-img {
+        height: 80%;
+        width: 10%;
+        object-fit: scale-down;
+    }
+
+    .post-footer {
+        display: flex;
+        height: 60px;
+        width: auto;
+    }
+
+    .owner-img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 3%;
+    }
+
+    .upvote-img {
+        height: 35px;
+        width: 35px;
+        margin-top: 1%;
+        margin-left: 5%;
+    }
+
+    .views-img {
+        height: 35px;
+        width: 35px;
+    }
+
+    .views-img:hover {
+        filter: hue-rotate(120deg);
+        color: mediumspringgreen;
+        cursor: pointer;
+    }
+
+    .upvote-img:hover {
+        color: palevioletred;
+        cursor: pointer;
+    }
+
+    .footer-item {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left: 3%;
+    }
+</style>
+
+{% include 'generic/sub-navbar.html' %}
+
+<body>
+    <div class="discussion-container">
+        <div class="post">
+            <div class="post-header">
+                {% load static %}
+                <img src="{% static 'random.jpg' %}" class="owner-img"></img>
+                <div style="margin-top: 1%; margin-left: 1%;">
+                    <div><b>Rick Roll</b></div>
+                    <div>15:03</div>
+                </div>
+            </div>
+            <div class="post-content">
+                <div>Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                    Learn about different wine varieties and
+                    their unique flavors at our wine tasting workshop. Experts will guide you through the experience.
+                </div>
+                <img src="{% static 'random.jpg' %}" class="post-img"></img>
+            </div>
+            <div class="post-footer">
+                <div class="footer-item">
+                    <img src="{% static 'heart.png' %}" class="upvote-img"></img>
+                    <div style="position:relative; left: 25%;">16</div>
+                </div>
+                <div class="footer-item">
+                    <img src="{% static 'views.png' %}" class="views-img"></img>
+                    <div style="position:relative; left: 25%;">16</div>
+                </div>
+            </div>
+            <div class="comment-widget">
+                {% include 'generic/add-comment.html' %}
+            </div>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

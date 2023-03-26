@@ -16,13 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from front.src.pages.views import homepage_view, user_create_view, login_view, sign_out
+from front.src.pages.views import homepage_view, user_create_view, login_view, sign_out, gen_form
+from front.src.pages.front_event import dashboard_view, event_create_view, event_view, event_discussion
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", homepage_view),
-    path("create-user", user_create_view),
-    path("login", login_view),
-    path("sign-out", sign_out),
+    path("", homepage_view, name="homepage"),
+    path("create-user", user_create_view, name="create-user"),
+    path("login", login_view, name="login"),
+    path("sign-out", sign_out, name="sign-out"),
+    path("event-dashboard", dashboard_view, name="event-dashboard"),
+    path("event-create", event_create_view, name="event-create"),
+    path("test", event_view, name="test"),
+    path("event/id_<int:event_id>/", event_view, name='event_detail'),
+    path("event/id_<int:event_id>/discussion/", event_discussion, name='event_discussion'),
 
 ]

@@ -3,15 +3,15 @@
 
 </style>
 
-<html lang="en">
+<html lang="en" style="height:100%">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Default Title{% endblock %}</title>
 </head>
-<body>
-    <header>
-        <nav>{% include 'generic/navbar.html' %}</nav>
-    </header>
+<header>
+    <nav>{% include 'generic/navbar.html' %}</nav>
+</header>
+<body style="height:calc(100% - 70px);">
     {% block content %} 
     {% endblock %}
 </body>

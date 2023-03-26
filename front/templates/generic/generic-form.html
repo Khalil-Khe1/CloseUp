@@ -1,0 +1,12 @@
+{% extends 'generic/base.html' %}
+
+{% block content %}
+  <div class="login-popup" style="width:300px;margin:0 auto;">
+    <h2 >{{ form_title }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" name="generic-submit" style="display:block;margin:0 auto;">Save</button>
+    </form>
+  </div>
+{% endblock %}

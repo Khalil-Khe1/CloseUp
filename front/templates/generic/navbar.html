@@ -40,20 +40,20 @@
   </style>
   
   <nav class="navbar navbar-expand-lg">
-      <a class="navlink" href="/">
+      <a class="navlink" href="{% url 'homepage' %}">
           HOME
           <img src="" style = "width: 160px;height: auto;" class = "main">  
       </a>
       
-      <a href="#" class="navlink">About</a>
-      <a href="sign-out" class="navlink">Contact</a>
+      <a href="{% url 'event-dashboard' %}" class="navlink">Events</a>
+      <a href="{% url 'test' %}" class="navlink">test</a>
       <div class="right">
         {% if logged_in %}
-          <a href="profile" class="navlink">Profile</a>
-          <a href="sign-out" class="navlink">Sign Out</a>
+          <a href="#" class="navlink">Profile</a>
+          <a href="{% url 'sign-out' %}" class="navlink">Sign Out</a>
         {% else %}
-          <a href="login" class="navlink">Log In</a>
-          <a href="create-user" class="navlink">Sign Up</a>
+          <a href="{% url 'login' %}" class="navlink">Log In</a>
+          <a href="{% url 'create-user' %}" class="navlink">Sign Up</a>
         {% endif %}
       </div>
       

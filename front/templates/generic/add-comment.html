@@ -1,0 +1,38 @@
+{% block title%}
+
+<style>
+    .your-comment {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .your-pic {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 2%;
+    }
+
+    .your-comment-content {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 3%;
+    }
+</style>
+
+<body>
+    <form class="your-comment" method="POST">
+        {% load static %}
+        <img class="your-pic" src="{% static 'random.jpg' %}">
+        <textarea name="your-comment" class="your-comment-content" rows="2" cols="40">
+            
+        </textarea>
+        <input type="submit" value="Send" style="margin-left: -10%;">
+        
+    </form>
+</body>
+
+{% endblock %}
