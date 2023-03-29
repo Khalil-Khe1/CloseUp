@@ -110,7 +110,7 @@
     </form>
     <div class="event-card-container">
         {% for values in event_list %}
-        <a href="{% url 'event_detail' event_id=values.id %}" name="card-link" id="card-{{ values.id }}" style="text-decoration:none;">
+        <a href="{% url 'event-detail' event_id=values.id %}" name="card-link" id="card-{{ values.id }}" style="text-decoration:none;">
             <div class="event-card" id="{{ values.id }}" name="card">
                 {% load static %}
                 <div class="event-image" style="background-image: url({% static 'random.jpg' %})"></div>

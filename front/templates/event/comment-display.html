@@ -1,0 +1,103 @@
+<style>
+    .your-comment {
+        display: flex;
+        align-items: center;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .your-pic {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .your-comment-content {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
+    .comment-content-div {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
+    .comment-container {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        height: auto;
+    }
+
+    .comment-container-text {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        width: 455px;
+    }
+
+    .cta-btn {
+        background-color: #0f1756;
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        height: 40px;
+        line-height: 20px;
+        list-style: none;
+        outline: none;
+        padding: 10px 16px;
+        position: relative;
+        text-align: center;
+        transition: color 100ms;
+        vertical-align: baseline;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .cta-btn,
+    .cta-btn {
+        background-color: #0f1756;
+    }
+</style>
+{% block title%}
+<div class="your-comment" id="com_{{ c.user_id }}">
+    {% load static %}
+    <img class="your-pic" src="{% static 'random.jpg' %}">
+    <div class="comment-container-text">
+        <div style="position:relative;right:44%;">{{ c.user.username }}</div>
+        <div style="position:relative;right:41.7%;"> {{ c.timestamp }} </div>
+        <div name="comment-content-text" class="comment-content-div" style="position:relative;right:38.5%;">{{ c.content }}</div>
+    </div>
+</div>
+{% endblock %}

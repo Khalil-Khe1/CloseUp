@@ -1,6 +1,6 @@
 from django import forms
 
-from front.models import User, Event
+from front.models import User, Event, Discussion
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -17,3 +17,9 @@ class EventForm(forms.ModelForm):
             'end_time': forms.DateInput(attrs={'type': 'date'}),
             'registration_deadline': forms.DateInput(attrs={'type': 'date'})
         }
+
+class DiscussionForm(forms.ModelForm):
+    class Meta:
+        model = Discussion
+        fields = ['title', 'content', 'images', 'item_type', 'timestamp']
+        exclude = ('user_id', 'parent_id', 'event_id')

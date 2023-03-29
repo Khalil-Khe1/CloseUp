@@ -1,14 +1,14 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.apps import apps
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User as djUser
+from django.views.decorators.csrf import csrf_exempt
 
-from front.models import User, Event
-from front.src.controller.forms import UserForm, EventForm
+from front.models import User, Event, Discussion
+from front.src.controller.forms import UserForm, EventForm, DiscussionForm
 
-#Create views
 def homepage_view(request):
     obj : User
     return render(request, 'generic/home.html')
@@ -26,9 +26,7 @@ def user_create_view(request):
             else:
                 form = UserForm(request.POST or None)
                 return render(request, 'user/signup.html', {'form': form})
-                #add field checkers
     else:
-        #back to signup
         form = UserForm(request.POST or None)
     return render(request, 'user/signup.html', {'form': form})
 
@@ -44,7 +42,6 @@ def login_view(request):
             if obj is not None:
                 login(request, obj)
                 return homepage_view(request)
-                #return HttpResponseRedirect('/')
     else:
         form = AuthenticationForm()
     return render(request, 'user/login.html', {'form': form})
@@ -54,40 +51,46 @@ def sign_out(request):
     print("entered")
     return homepage_view(request)
 
+@csrf_exempt
 def gen_form(request, entity):
     l = []
     forms = {}
+    forms_before = {
+        "event": EventForm(request.POST or None),
+        "discussion": DiscussionForm(request.POST or None)
+    }
     context = {}
     l.append(request)
     if request.method == 'POST':
-        forms = {
-            "event": EventForm(request.POST or None),
-        }   
-
+        forms = forms_before 
         form = forms[entity]
         context = {
             'form': form,
             'form_title': "Add " + entity
         }   
         l.append(context)
-
+        print(request.POST)
         if "generic-submit" in request.POST:
-            form.instance.organizer_id = request.user.id
+            spec_form_cases(request, form, entity)
             if(form.is_valid()):
-                form.save()
+                gen_info = form.save()
+                print("state")                
                 l.append('generic/home.html')
-                #return homepage_view(request)
+                l.append(gen_info.id)                
             else:
                 context["form"] = forms[entity]
                 l.append('generic/generic-form.html')
-                #return render(request, 'generic/generic-form.html', context)
     else:
-        forms = {
-            "event": EventForm(request.POST or None),
-        }
+        forms = forms_before
         form = forms[entity]
         context["form"] = form
         l.append(context)
-    l.append('generic/generic-form.html')
+        l.append('generic/generic-form.html')
     return l
-    #return render(request, 'generic/generic-form.html', context)
+
+def spec_form_cases(request, form, entity : str):
+    if(entity == "event"):
+        form.instance.organizer_id = request.user.id
+    elif(entity == "discussion"): 
+            form.instance.user_id = request.user.id
+            form.instance.parent_id = request.POST["parent_id"]

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from front.src.pages.views import homepage_view, user_create_view, login_view, sign_out, gen_form
-from front.src.pages.front_event import dashboard_view, event_create_view, event_view, event_discussion
+from front.src.pages.front_event import dashboard_view, event_create_view, event_view, event_discussion, comment_create_view, comment_view, comment_generate_temp_display, event_discussion_details
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -27,8 +27,13 @@ urlpatterns = [
     path("sign-out", sign_out, name="sign-out"),
     path("event-dashboard", dashboard_view, name="event-dashboard"),
     path("event-create", event_create_view, name="event-create"),
+    path("comment-create", comment_create_view, name="comment-create"),
+    path("temp-comment-create", comment_generate_temp_display, name="comment-temp-display"),
     path("test", event_view, name="test"),
-    path("event/id_<int:event_id>/", event_view, name='event_detail'),
-    path("event/id_<int:event_id>/discussion/", event_discussion, name='event_discussion'),
+    path("event/id_<int:event_id>/", event_view, name='event-detail'),
+    path("event/id_<int:event_id>/discussion/", event_discussion, name='event-discussion'),
+    path("event/id_<int:event_id>/discussion/threads/", comment_view, name='comment'),
+    path("event/id_<int:event_id>/discussion/threads/post_id<int:post_id>", event_discussion_details, name='discussion-details'),
+
 
 ]

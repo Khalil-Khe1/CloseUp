@@ -1,0 +1,118 @@
+<style>
+    .your-reply-comment {
+        display: flex;
+        align-items: center;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+
+    .your-reply-pic {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .your-reply-comment-content {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
+    .comment-reply-content-div {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
+
+    .comment-reply-container {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        height: auto;
+    }
+
+    .comment-reply-container-text {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        width: 455px;
+    }
+
+    .cta-btn {
+        background-color: #0f1756;
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        height: 40px;
+        line-height: 20px;
+        list-style: none;
+        outline: none;
+        padding: 10px 16px;
+        position: relative;
+        text-align: center;
+        transition: color 100ms;
+        vertical-align: baseline;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .cta-btn,
+    .cta-btn {
+        background-color: #0f1756;
+    }
+</style>
+{% block title%}
+<div style="display: flex; flex-direction: column;" name="reprep" id="{{ node.key.id }}">
+    <div class="your-reply-comment">
+        {% load static %}
+        <img class="your-reply-pic" src="{% static 'random.jpg' %}">
+        <div class="comment-reply-container-text">
+            <div style="position:relative;right:44%;">{{ node.key.user.username }}</div>
+            <div style="position:relative;right:41.7%;"> {{ node.key.timestamp }} </div>
+            <div name="comment-content-text" class="comment-reply-content-div" style="position:relative;right:38.5%;">
+                {{ node.key.content }}</div>
+            <div class="cta-btn" name="cta-reply" style="position:relative; left:40%;">Reply</div>
+        </div>
+    </div>
+    {% if node.has_childs %}
+        {% for ch in node.child %}
+            {% with node=ch template_name='event/replies-display.html' %}
+                {% include template_name %}
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+    <div name="put-submit-here">
+
+    </div>
+</div>
+
+{% endblock %}

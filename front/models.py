@@ -43,11 +43,13 @@ class Event(models.Model):
 class Discussion(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    title = models.CharField(max_length=50)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, default=None, blank=True, null=True)
+    title = models.CharField(max_length=50, default="", blank=True, null=True)
     content = models.TextField()
-    images = models.CharField(max_length=1000, default="")
+    images = models.CharField(max_length=1000, default="", blank=True, null=True)
     item_type = models.CharField(max_length=50) #Announcement(Starter + Organizer), Starter, Reply 
     timestamp = models.TimeField()
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, default=None, blank=True, null=True)
 
 class Ticket(models.Model):
     id = models.AutoField(primary_key=True)
@@ -63,3 +65,34 @@ class Review(models.Model):
     rating = models.IntegerField()
     comment = models.TextField()
     created_at = models.DateField()
+
+class Node:
+     
+    def __init__(self, key):
+         
+        self.key = key
+        self.child = []
+   
+    def newNode(key):   
+        temp = Node(key)
+        return temp
+    
+    def has_childs(self):
+        if len(self.child) > 0:
+            return True
+        return False
+     
+    def LevelOrderTraversal(root):
+        if (root == None):
+            return
+        q = []  
+        q.append(root); 
+        while (len(q) != 0):
+            n = len(q)
+            while (n > 0):
+                p = q[0]
+                q.pop(0)
+                for i in range(len(p.child)):        
+                    q.append(p.child[i])
+                n -= 1
+   

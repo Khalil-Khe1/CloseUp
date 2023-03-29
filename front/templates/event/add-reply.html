@@ -1,0 +1,10 @@
+<div class="your-add-comment" name="com_{{ current_id }}">
+    {% load static %}
+    <img class="your-add-pic" src="{% static 'random.jpg' %}">
+    <div class="comment-add-container">
+        <textarea id="comm-con" name="your-add-comment" placeholder="What are you thinking..." class="your-add-comment-content"
+            rows="2" cols="50"></textarea>
+        <button name="add-btn" class="cta-btn"
+            style="position: relative; bottom: 1px; margin-bottom: -1%; margin-right: 2%;">Send</button>
+    </div>
+</div>

@@ -33,7 +33,7 @@
     }
 
     .org-container {
-        background-color: #b2b2b2;
+        background-color: #143555;
         float: left;
         width: 50%;
         height: 100%;
@@ -69,16 +69,16 @@
 
     .event-org {
         display: flex;
-        background-color: #555350;
-        border: 1px solid #794a0c;
+        background-color: #4a71a0;
+        border: 0px solid;
         border-radius: 5px;
         width: 100%;
     }
 
     .org-sponsor{
         display: flex;
-        background-color: #555350;
-        border: 1px solid #794a0c;
+        background-color: #4a71a0;
+        border: 0px solid #794a0c;
         border-radius: 5px;
         margin-top: 10px;
         width: 100%;
@@ -170,15 +170,16 @@
                         <div class=" event-font" style="margin-top: 50px; margin-left: 20px;">{{ event.organizer.username }}</div>
                     </div>
                     <div class="org-sponsor" style="display: flex;">
-                        <div>
+                        <div class="event-org">
                             <img src="{% static 'random.jpg' %}" class="org-img"></img>
-                            <div class=" event-font" style="margin-left: 27px; margin-right: 27px;">Sponsor 1</div>
+                            <div class=" event-font" style="margin-top: 50px; margin-left: 20px;">Sponsor 1</div>
                         </div>
 
                     </div>
                 </div>
                 <div class="map">
-
+                    <b>MAP-API</b>
+                    <b>WIP</b>
                 </div>
             </div>
         </div>
