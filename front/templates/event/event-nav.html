@@ -1,0 +1,137 @@
+{% block stylesheets %}
+<style>
+    /* Set color of text in subnavbar */
+    .big-cont{
+        height: 360px;
+        width: 100%;
+    }
+
+    .subnavbar {
+        background-color: rgb(255, 255, 255);
+        height: calc(100% - 290px);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        /*border: 1px solid #8c8c8c;*/
+    }
+
+    .sub-link {
+        color: rgb(51, 51, 51);
+        font-size: 1rem;
+        font-family: Helvetica;
+        text-decoration: none;
+        margin: 0 30px;
+    }
+
+    .sub-container{
+        width: auto;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+
+    .cover{
+        height: 290px;
+        width: 100%;
+        max-height: 80%;
+        object-fit: cover;
+        background-color: aquamarine;
+        position: relative;
+    }
+
+    .ev-info{
+        z-index: 1;
+        position: absolute;
+        bottom: 8%;
+        left: 8%;
+        color: white;
+
+        font-size: 1.5rem;
+        font-family: Helvetica;
+        text-decoration: none;
+    }
+
+    .cover-img{
+        background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,255,255,0) 59%);
+    }
+
+    .link-box{
+        padding: 20px 0px;
+        position: relative;
+        height: calc(100% - 40px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .lb-bg:hover{
+        background-color: #e4e6eb;
+    }
+
+    .href-highlight{
+        position: absolute; bottom: 0; height: 4px; width: 100%; background-color: blue; display: none;
+    }
+</style>    
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        let i = 0;
+        switch (window.location.pathname) {
+            case "/event/id_{{ item_id }}/":
+                for (const child of document.getElementById("info-navlink").children) {
+                    if(i == 0){
+                        child.style.color = "blue";
+                    } else {
+                        child.style.display = "block"
+                    }
+                    i++;
+                }
+                document.getElementById("info-navlink").classList.remove("lb-bg");
+                break;
+        }
+    });
+</script>
+{% endblock %}
+
+<div class="big-cont" id="bcont">
+    {% load static %}
+    <!--<img src="{% static 'random.jpg' %}" class="cover"></img>-->
+    <div class="cover" id="cov">
+        <img id="cover-img" src="{% static 'concert.jpg' %}" style=" width: 100%; max-height: 100%; object-fit: cover;">
+        <div style="background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(255,255,255,0) 59%); width: 100%; height: 100%; position: absolute; top: 0; left: 0;"></div>
+        <div class="ev-info" id="cover-header">
+            <div><b>Linkin Park Concert - Central Park</b></div>
+            <div>Central Park</div>
+        </div>
+    </div>
+    <nav class="subnavbar" id="nbar">
+        <div class="sub-container">
+            <div class="link-box lb-bg" id="info-navlink">
+                <a href="{% url 'event-detail' event_id=item_id %}" class="sub-link">Info</a>
+                <div class="href-highlight"></div>
+            </div>
+            <div class="link-box lb-bg" id="ann-navlink">
+                <a href="#" class="sub-link">Announcements</a>
+                <div class="href-highlight"></div>
+            </div>
+            <div class="link-box lb-bg" id="discussion-navlink">
+                <a href="{% url 'event-discussion' event_id=item_id %}" class="sub-link">Discussion</a>
+                <div class="href-highlight"></div>
+            </div>
+            <div class="link-box lb-bg" id="part-navlink">
+                <a href="#" class="sub-link">Participants</a>
+                <div class="href-highlight"></div>
+            </div>
+        </div>
+    </nav>
+</div>

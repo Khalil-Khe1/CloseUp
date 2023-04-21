@@ -1,6 +1,6 @@
 from django import forms
 
-from front.models import User, Event, Discussion
+from front.models import User, Event, Discussion, Like, Views
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,13 @@ class DiscussionForm(forms.ModelForm):
         model = Discussion
         fields = ['title', 'content', 'images', 'item_type', 'timestamp']
         exclude = ('user_id', 'parent_id', 'event_id')
+
+class LikeForm(forms.ModelForm):
+    class Meta:
+        model = Like
+        exclude = ['user_id', 'post_id']
+
+class ViewsForm(forms.ModelForm):
+    class Meta:
+        model = Views
+        exclude = ['user_id', 'post_id']

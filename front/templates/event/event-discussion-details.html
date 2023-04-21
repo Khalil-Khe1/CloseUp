@@ -1,269 +1,152 @@
-{% extends 'generic/base.html' %}
+{% extends 'event/side-bars.html' %}
 
-{% block content %}
+{% load static %}
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% block stylesheets %}
+{% load static %}
+<link href="{% static 'css/event/event-post.css' %}" rel="stylesheet">
+<link href="{% static 'css/event/event-main.css' %}" rel="stylesheet">
+{% endblock %}
 
-<style>
-    .discussion-container {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        width: auto;
-    }
+{% block javascripts %}
+{{ block.super }}
+<script>
+    function pageSetup(comment_id, pid, recent_id) {
+        var x = document.getElementsByName(comment_id);
+        x.forEach(e => {
+            if (e.parentElement.getAttribute("name") != "surface-comment") {
+                e.style.marginLeft = "2%";
+            }
+        });
 
-    .post {
-        height: auto;
-        width: 550px;
-        margin-top: 2%;
-        margin-left: calc(50% - 300px);
-        border: 2px solid black;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-    }
 
-    .post-header {
-        height: 60px;
-        width: 400px;
-        display: flex;
-        margin-top: 2%;
-    }
+        document.getElementsByName("your-add-comment").forEach(e => e.addEventListener('input', () => {
+            e.style.height = 'auto';
+            e.style.height = `${e.scrollHeight}px`;
+        }))
 
-    .post-content {
-        display: flex;
-        flex-direction: column;
-        padding: 5px 10px 5px 10px;
-    }
+        document.getElementsByName("reprep").forEach(r => {
+            var name = r.parentElement.getAttribute("name");
+            console.log("aasba " + name);
+            if ((name != "surface-comment") || (name == null)) {
+                r.style.marginLeft = "2%";
+            }
+        })
 
-    .post-img {
-        margin-top: 5%;
-        height: 600px;
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .upvote-img {
-        height: 80%;
-        width: 10%;
-        object-fit: scale-down;
-    }
-
-    .post-footer {
-        display: flex;
-        height: 60px;
-        width: auto;
-        position: relative;
-        margin-bottom: 5%;
-    }
-
-    /*.post-footer:before {
-        margin-top: 1%;
-        margin-bottom: 1%;
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 8%;
-        width: 80%;
-        height: 1px;
-        background-color: black;
-    }*/
-
-    .post-footer:after {
-        margin-top: 14%;
-        margin-bottom: 1%;
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 12%;
-        width: 80%;
-        height: 1px;
-        background-color: rgb(0, 0, 0);
-    }
-
-    .owner-img {
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-        margin-left: 3%;
-    }
-
-    .upvote-img {
-        height: 35px;
-        width: 35px;
-        margin-top: 1%;
-        margin-left: 5%;
-    }
-
-    .views-img {
-        height: 35px;
-        width: 35px;
-    }
-
-    .views-img:hover {
-        filter: hue-rotate(120deg);
-        color: mediumspringgreen;
-        cursor: pointer;
-    }
-
-    .upvote-img:hover {
-        color: palevioletred;
-        cursor: pointer;
-    }
-
-    .footer-item {
-        display: flex;
-        flex-direction: column;
-        height: auto;
-        width: auto;
-        margin-top: 3%;
-        margin-bottom: 3%;
-        margin-left: 3%;
-
-    }
-</style>
-
-{% include 'generic/sub-navbar.html' %}
-
-<body>
-    <div class="discussion-container">
-        {% if postNode.key.item_type == "starter" %}
-        <div class="post" name="xd">
-            <div class="post-header" id="post_{{ postNode.key.id }}">
-                {% load static %}
-                <img src="{% static 'random.jpg' %}" class="owner-img"></img>
-                <div style="margin-top: 1%; margin-left: 1%;">
-                    <div><b>{{ postNode.key.user.username }}</b></div>
-                    <div>{{ postNode.key.timestamp }}</div>
-                </div>
-            </div>
-            <div class="post-content">
-                <div>{{ postNode.key.content }}</div>
-            </div>
-            <img src="{% static 'random.jpg' %}" class="post-img"></img>
-            <div class="post-footer">
-                <div class="footer-item" style="margin-left: 8%;">
-                    <img src="{% static 'heart.png' %}" class="upvote-img"></img>
-                    <div style="position:relative; left: 25%;">16</div>
-                </div>
-                <div class="footer-item">
-                    <img src="{% static 'views.png' %}" class="views-img"></img>
-                    <div style="position:relative; left: 25%;">16</div>
-                </div>
-            </div>
-            <div name="comment-widget" class="comment-widget">
-                <div id="recent{{ forloop.counter0 }}_{{ postNode.key.user_id }}" name="surface-comment"
-                    class="comment-widget">
-                    {% if postNode.has_childs %}
-                    {% for ch in postNode.child %}
-                    {% with node=ch template_name='event/replies-display.html' %}
-                    {% include template_name %}
-                    {% endwith %}
-                    {% endfor %}
-                    {% endif %}
-                </div>
-                <div id="myDiv{{ forloop.counter0 }}_{{ postNode.key.user_id }}" name="surface-comment"
-                    class="comment-widget">
-
-                </div>
-            </div>
-
-            <script>
-                console.log("hello");
-                document.getElementById("post_{{postNode.key.id}}").addEventListener("click", () => {
-                    conole.log("post")
-                })
-            </script>
-
-            <script>
-                $(document).ready(() => {
-                    $('#myDiv{{ forloop.counter0 }}_{{ postNode.key.user_id }}').load('../threads/', function () {
-                        pageSetup();
-                        ajaxAddComment("comment");
-                    });
+        document.getElementsByName("cta-reply").forEach(b => {
+            b.addEventListener("click", () => {
+                var target = b.parentElement.parentElement.parentElement.lastElementChild;
+                $(target).load('../threads/', function () {
+                    ajaxAddComment("reply", pid, recent_id);
                 });
+            })
+        });
+    }
 
-                function pageSetup() {
-                    var x = document.getElementsByName("com_{{ current_id }}");
-                    console.log(x.length);
-                    x.forEach(e => {
-                        if (e.parentElement.getAttribute("name") != "surface-comment") {
-                            e.style.marginLeft = "2%";
-                            console.log("hy");
-                        }
-                    });
-
-
-                    document.getElementsByName("your-add-comment").forEach(e => e.addEventListener('input', () => {
-                        e.style.height = 'auto';
-                        e.style.height = `${e.scrollHeight}px`;
-                    }))
-
-                    document.getElementsByName("reprep").forEach(r => {
-                        var name = r.parentElement.getAttribute("name");
-                        console.log("aasba " + name);
-                        if ((name != "surface-comment") || (name == null)) {
-                            r.style.marginLeft = "2%";
-                        }
-                    })
-
-                    document.getElementsByName("cta-reply").forEach(b => {
-                        b.addEventListener("click", () => {
-                            var target = b.parentElement.parentElement.parentElement.lastElementChild;
-                            $(target).load('../threads/', function () {
-                                ajaxAddComment("reply");
-                            });
-                        })
-                    });
+    function ajaxAddComment(comm_type, pid, recent_id) {
+        const addButton = document.getElementsByName('add-btn');
+        addButton.forEach(e => {
+            e.addEventListener("click", () => {
+                const title = ""
+                const user_id = "{{ current_id }}"
+                const content = document.getElementById("comm-con").value;
+                const images = "";
+                const item_type = "comment";
+                const timestamp = new Date().toJSON().slice(11, 19);
+                var parent_id
+                if (comm_type == "comment") {
+                    parent_id = "{{ postNode.key.id }}";
+                } else {
+                    parent_id = e.parentElement.parentElement.parentElement.parentElement.id
                 }
+                var t = [title, user_id, content, images, item_type, timestamp, parent_id]
+                $.ajax({
+                    type: 'POST',
+                    url: '/comment-create',
+                    data: {
+                        'title': title,
+                        'user_id': user_id,
+                        'content': content,
+                        'images': images,
+                        'item_type': item_type,
+                        'timestamp': timestamp,
+                        'parent_id': parent_id,
+                        'generic-submit': 'generic-submit'
+                    },
+                    success: function (response) {
+                        console.log("jQuery succ");
+                        $("#recent" + recent_id).append(response);
+                        console.log(response);
+                    },
+                    error: function (response) {
+                        console.log('Error:', response);
+                    }
+                })
+            });
+        });
+    }
+</script>
+{% endblock %}
 
-                function ajaxAddComment(comm_type) {
-                    const addButton = document.getElementsByName('add-btn');
-                    addButton.forEach(e => {
-                        e.addEventListener("click", () => {
-                            const title = ""
-                            const user_id = "{{ current_id }}"
-                            const content = document.getElementById("comm-con").value;
-                            const images = "";
-                            const item_type = "comment";
-                            const timestamp = new Date().toJSON().slice(11, 19);
-                            var parent_id
-                            if(comm_type == "comment"){
-                                parent_id = "{{ postNode.key.id }}";
-                            } else {
-                                parent_id = e.parentElement.parentElement.parentElement.parentElement.id
-                            }
-                            var t = [title, user_id, content, images, item_type, timestamp, parent_id]
-                            $.ajax({
-                                type: 'POST',
-                                url: '/comment-create',
-                                data: {
-                                    'title': title,
-                                    'user_id': user_id,
-                                    'content': content,
-                                    'images': images,
-                                    'item_type': item_type,
-                                    'timestamp': timestamp,
-                                    'parent_id': parent_id,
-                                    'generic-submit': 'generic-submit'
-                                },
-                                success: function (response) {
-                                    console.log("jQuery succ");
-                                    $("#recent{{ forloop.counter0 }}_{{ postNode.key.user_id }}").append(response);
-                                    console.log(response);
-                                },
-                                error: function (response) {
-                                    console.log('Error:', response);
-                                }
-                            })
-                        });
-                    });
-                }
-            </script>
-
+{% block page %}
+{% include 'event/event-nav.html' %}
+<div class="discussion-container">
+    {% if postNode.key.item_type == "starter" %}
+    <div class="post" name="xd">
+        <div class="post-header" id="post_{{ postNode.key.id }}">
+            {% load static %}
+            <img src="{% static 'random.jpg' %}" class="owner-img"></img>
+            <div style="margin-top: 1%; margin-left: 1%;">
+                <div><b>{{ postNode.key.user.username }}</b></div>
+                <div>{{ postNode.key.timestamp }}</div>
+            </div>
         </div>
-        {% endif %}
-    </div>
-</body>
+        <div class="post-content">
+            <div>{{ postNode.key.content }}</div>
+        </div>
+        <img src="{% static 'random.jpg' %}" class="post-img"></img>
+        <div class="post-footer">
+            <div class="footer-item" style="margin-left: 8%;">
+                <img src="{% static 'heart.png' %}" class="upvote-img"></img>
+                <div style="position:relative; left: 25%;">16</div>
+            </div>
+            <div class="footer-item">
+                <img src="{% static 'views.png' %}" class="views-img"></img>
+                <div style="position:relative; left: 25%;">16</div>
+            </div>
+        </div>
+        <div name="comment-widget" class="comment-widget">
+            <div id="recent{{ forloop.counter0 }}_{{ postNode.key.user_id }}" name="surface-comment"
+                class="comment-widget">
+                {% if postNode.has_childs %}
+                {% for ch in postNode.child %}
+                {% with node=ch template_name='event/replies-display.html' %}
+                {% include template_name %}
+                {% endwith %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div id="myDiv{{ forloop.counter0 }}_{{ postNode.key.user_id }}" name="surface-comment"
+                class="comment-widget">
 
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("post_{{postNode.key.id}}").addEventListener("click", () => {
+                conole.log("post")
+            })
+        </script>
+
+        <script>
+            $(document).ready(() => {
+                $('#myDiv{{ forloop.counter0 }}_{{ postNode.key.user_id }}').load('../threads/', function () {
+                    pageSetup("com_{{ current_id }}", "{{ postNode.key.id }}", "{{ forloop.counter0 }}_{{ postNode.key.user_id }}");
+                    ajaxAddComment("comment", "{{ postNode.key.id }}", "{{ forloop.counter0 }}_{{ postNode.key.user_id }}");
+                });
+            });
+        </script>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

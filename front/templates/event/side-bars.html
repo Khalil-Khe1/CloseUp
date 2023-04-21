@@ -1,0 +1,21 @@
+{% extends 'generic/base.html' %}
+
+{% load static %}
+
+{% block stylesheets %}
+<link href="{% static 'css/event/event-main.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div name="event-profile" style="height:100%; width: 100%;">
+    <div class="side-bar-event" id="sb1">
+        {% block sb1 %}{% endblock %}
+    </div>
+    <div class="form-container" id="sb-fc">
+        {% block page %}{% endblock %}
+    </div>
+    <div class="side-bar-event" id="sb2">
+        {% block sb2 %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

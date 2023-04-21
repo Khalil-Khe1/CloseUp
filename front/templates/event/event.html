@@ -1,189 +1,53 @@
-{% extends 'generic/base.html' %}
+{% extends 'event/side-bars.html' %}
 
-{% block content %}
+{% load static %}
 
-<style>
-    body {
-        overflow: hidden;
-        /* Hide scrollbars */
-    }
+{% block stylesheets %}
+<link href="{% static 'css/event/event-main.css' %}" rel="stylesheet">
+{% endblock %}
 
-    .event-card {
-        display: flex;
-        flex-direction: column;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 10px;
-        height: 245px;
-        width: 300px;
-        text-decoration: none;
-        color: inherit;
-        cursor: pointer;
-    }
+{% block page %}
+{% include 'event/event-nav.html' %}
+<div class="content">
+    <div class="event-main">
+        <h1>{{ event.title }}</h1>
+        <h2>{{ event.start_time }}</h2>
+        <h2>{{ event.location }}</h2>
+        <div>
+            <p class=" event-font">{{ event.description }}
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            </p>
 
-    .form-container {
-        background-color: #ffffff;
-        float: left;
-        width: 50%;
-        padding-top: 20px 20px 20px 20px;
-        word-wrap: break-word;
-        overflow: hidden;
-        height: 100%;
-
-    }
-
-    .org-container {
-        background-color: #143555;
-        float: left;
-        width: 50%;
-        height: 100%;
-    }
-
-    .content {
-        position: relative;
-        padding: 1rem;
-
-    }
-
-    .event-img {
-        width: 91%;
-        height: 40%;
-        object-fit: cover;
-        top: 50%;
-        left: 50%;
-        padding: 1rem;
-        transform: translate(2%, 0%);
-    }
-
-    .call-to-action {
-        position: absolute;
-        bottom: 10%;
-        width: 10%;
-        margin-left: 20%;
-        margin-right: 20%;
-    }
-
-    .org-info {
-        display: flex;
-    }
-
-    .event-org {
-        display: flex;
-        background-color: #4a71a0;
-        border: 0px solid;
-        border-radius: 5px;
-        width: 100%;
-    }
-
-    .org-sponsor{
-        display: flex;
-        background-color: #4a71a0;
-        border: 0px solid #794a0c;
-        border-radius: 5px;
-        margin-top: 10px;
-        width: 100%;
-    }
-
-    .org-img {
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        padding: 10px;
-        padding-left: 15px;
-        transform: translate(2%, 0%);
-    }
-
-    .event-font {
-        font-family: Helvetica;
-    }
-
-    .map {
-        width: 40%;
-        background-color: green;
-        border-radius: 5px;
-        border: 5px;
-        margin: 5px 10px 5px 10%;
-    }
-
-    .cta-btn {
-        background-color: #0f1756;
-        border-radius: 8px;
-        border-style: none;
-        box-sizing: border-box;
-        color: #FFFFFF;
-        cursor: pointer;
-        display: inline-block;
-        font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        height: 40px;
-        line-height: 20px;
-        list-style: none;
-        outline: none;
-        padding: 10px 16px;
-        position: relative;
-        text-align: center;
-        transition: color 100ms;
-        vertical-align: baseline;
-        user-select: none;
-        -webkit-user-select: none;
-        touch-action: manipulation;
-    }
-
-    .cta-btn,
-    .cta-btn {
-        background-color: #0f1756;
-    }
-</style>
-
-{% include 'generic/sub-navbar.html' %}
-
-<body>
-    <div name="event-profile" style="height:100%;">
-        <div class="form-container">
-            <div class="content">
-                <h1>{{ event.title }}</h1>
-                <h2>{{ event.start_time }}</h2>
-                <h2>{{ event.location }}</h2>
-                <div>
-                    <p class=" event-font">{{ event.description }}</p>
-
-                    <div class=" event-font">{{ event.participators }} are going. </div>
-                </div>
-
-            </div>
-            <div class="call-to-action">
-                <div class=" event-font">Price: $13.99</div>
-                <a href="#" class="cta-btn" style="text-decoration: none;">Buy now</a>
-            </div>
-        </div>
-        <div class="org-container">
-            {% load static %}
-            <img src="{% static 'random.jpg' %}" class="event-img"></img>
-            <div class="org-info">
-                <div class="org" style="width:40%; margin:5px 10px 5px 30px;">
-                    <div class="event-org">
-                        <img src="{% static 'random.jpg' %}" class="org-img"></img>
-                        <div class=" event-font" style="margin-top: 50px; margin-left: 20px;">{{ event.organizer.username }}</div>
-                    </div>
-                    <div class="org-sponsor" style="display: flex;">
-                        <div class="event-org">
-                            <img src="{% static 'random.jpg' %}" class="org-img"></img>
-                            <div class=" event-font" style="margin-top: 50px; margin-left: 20px;">Sponsor 1</div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="map">
-                    <b>MAP-API</b>
-                    <b>WIP</b>
-                </div>
-            </div>
+            <div class=" event-font">{{ event.participators }} are going. </div>
         </div>
     </div>
-</body>
+    <div class="org-container">
+        <div class="event-org">
+            <div class="org-content">
+                <img src="{% static 'misc/default.jpg' %}" class="org-img">
+                <div style="display: flex; gap: 5px;">
+                    <div style="color: #050505; margin-bottom: 5%;"><b>Organizer's name</b></div>
+                    <img src="{% static 'misc/verified.png' %}" class="verified"
+                        style="height: 20px; width: 20px; border-radius: 30px;">
+                </div>
+                <div style="color: #536471; margin-bottom: 5%; text-align: center; width: 76%;"><b
+                        style="color: #050505;">70k</b> Followers</div>
+                <div class="follow-btn">Follow</div>
+            </div>
 
+        </div>
+        <div class="event-org">Map</div>
+    </div>
+</div>
 {% endblock %}

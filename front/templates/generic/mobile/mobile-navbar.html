@@ -1,0 +1,57 @@
+{% block stylesheets %}
+<style>
+    /* Set background color of navbar */
+    .navbar {
+      background-color: rgb(20, 97, 180);
+      width: 100%;
+    }
+  
+    /* Set color of text in navbar */
+    .navbar a {
+      color: #fff;
+    }
+  </style>
+  
+  <style>
+    /* Set color of text in navbar */
+    .navbar {
+      background-color: rgb(20, 97, 180);
+      color: #fff;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  
+    .navlink {
+      color: white;
+      font-size: 2rem;
+      font-family: Helvetica;
+      text-decoration: none;
+      margin: 0 30px;
+    }
+  
+    .right {
+      margin-left: auto;
+    }
+
+    .nav-img{
+        height: 30px;
+        width: 30px;
+    }
+  </style>
+{% endblock %}
+
+{% if logged_in %}
+<nav class="navbar">
+    {% load static %}
+    <img class="nav-img" src="{% static 'tbars.png' %}">
+    <a class="navlink" href="{% url 'homepage' %}">
+      CloseUP
+      <img src="" style="width: 160px;height: auto;" class="main">
+    </a>
+    <img class="nav-img" src="{% static 'tbars.png' %}">
+</nav>
+{% else %}
+{% endif %}

@@ -3,15 +3,44 @@
 
 </style>
 
-<html lang="en" style="height:100%">
+<html lang="en" style="height:auto; width: 100%;" id="html">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>{% block title %}Default Title{% endblock %}</title>
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script>
+            pageSetup();
+
+            function pageSetup(){
+                $(document).ready(() => {
+                    let h = window.getComputedStyle(document.getElementById("html")).getPropertyValue('height');
+                    h = h.replace("px", "");
+                    console.log("first " + h);
+                    h = parseInt(h) + 70;
+                    console.log("final " + h);
+
+                    document.body.style.height = h + "px";
+                });
+                
+            }
+        </script>
+    {% endblock %}
 </head>
 <header>
-    <nav>{% include 'generic/navbar.html' %}</nav>
+    <nav>
+        {% if request.user_agent.is_mobile %}
+            {% include 'generic/mobile/mobile-navbar.html' %}
+        {% else %}
+            {% include 'generic/navbar.html' %}
+        {% endif %}
+    </nav>
 </header>
-<body style="height:calc(100% - 70px);">
+<body style="height:auto; width: 100%;" id="body">
     {% block content %} 
     {% endblock %}
 </body>

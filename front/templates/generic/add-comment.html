@@ -1,128 +1,126 @@
-{% block title%}
-
+{% block stylesheets %}
 <style>
     .your-add-comment {
-    display: flex;
-    align-items: center;
-    height: auto;
-    box-sizing: border-box;
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
+        display: flex;
+        align-items: center;
+        height: auto;
+        box-sizing: border-box;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
 
-.your-add-pic {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    margin-left: 2%;
-    margin-right: 2%;
-}
+    .your-add-pic {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 
-.your-add-comment-content {
-    resize: vertical;
-    height: auto;
-    width: auto;
-    word-break: break-word;
-    margin-left: 2%;
-    margin-right: 1%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    border: none;
-    outline: none;
-    resize: none;
-}
+    .your-add-comment-content {
+        resize: vertical;
+        height: auto;
+        width: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
 
-.comment-add-content-div{
-    resize: vertical;
-    height: auto;
-    word-break: break-word;
-    margin-left: 2%;
-    margin-right: 1%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    border: none;
-    outline: none;
-    resize: none;
-}
+    .comment-add-content-div {
+        resize: vertical;
+        height: auto;
+        word-break: break-word;
+        margin-left: 2%;
+        margin-right: 1%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        border: none;
+        outline: none;
+        resize: none;
+    }
 
-.comment-add-container {
-    border: 2px solid rgb(103, 103, 103);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    height: auto;
-}
+    .comment-add-container {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        height: auto;
+    }
 
-.comment-add-container-text{
-    border: 2px solid rgb(103, 103, 103);
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: auto;
-}
+    .comment-add-container-text {
+        border: 2px solid rgb(103, 103, 103);
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
 
-.cta-btn {
-    background-color: #0f1756;
-    border-radius: 8px;
-    border-style: none;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    height: 40px;
-    line-height: 20px;
-    list-style: none;
-    outline: none;
-    padding: 10px 16px;
-    position: relative;
-    text-align: center;
-    transition: color 100ms;
-    vertical-align: baseline;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
+    .cta-btn {
+        background-color: #0f1756;
+        border-radius: 8px;
+        border-style: none;
+        box-sizing: border-box;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        height: 40px;
+        line-height: 20px;
+        list-style: none;
+        outline: none;
+        padding: 10px 16px;
+        position: relative;
+        text-align: center;
+        transition: color 100ms;
+        vertical-align: baseline;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
 
-.cta-btn,
-.cta-btn {
-    background-color: #0f1756;
-}
+    .cta-btn,
+    .cta-btn {
+        background-color: #0f1756;
+    }
 </style>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    function pageSetup() {
+        var x = document.getElementById("com_{{ current_id }}");
+        console.log(x.parentElement.getAttribute("name"));
+        if (x.parentElement.getAttribute("name") != "surface-comment") {
+            x.style.marginLeft = "2%";
+
+        }
+
+        const textarea = document.getElementsByName("your-add-comment");
+        textarea.forEach(e => e.addEventListener('input', () => {
+            e.style.height = 'auto';
+            e.style.height = `${e.scrollHeight}px`;
+        }))
+    }
+
+    pageSetup();
+</script>
+{% endblock %}
 
 <div class="your-add-comment" id="com_{{ current_id }}">
     {% load static %}
     <img class="your-add-pic" src="{% static 'random.jpg' %}">
     <div class="comment-add-container">
-        <textarea id="comm-con" name="your-add-comment" placeholder="What are you thinking..." class="your-add-comment-content"
-            rows="2" cols="50"></textarea>
+        <textarea id="comm-con" name="your-add-comment" placeholder="What are you thinking..."
+            class="your-add-comment-content" rows="2" cols="50"></textarea>
         <button name="add-btn" class="cta-btn"
             style="position: relative; bottom: 1px; margin-bottom: -1%; margin-right: 2%;">Send</button>
     </div>
 </div>
-
-<script>
-    var x = document.getElementById("com_{{ current_id }}");
-    console.log(x.parentElement.getAttribute("name"));
-    if(x.parentElement.getAttribute("name") != "surface-comment"){
-        x.style.marginLeft = "2%";
-        console.log("hy");
-    }
-
-    const textarea = document.getElementsByName("your-add-comment");
-    textarea.forEach(e => e.addEventListener('input', () => {
-        console.log("sss");
-        e.style.height = 'auto';
-        e.style.height = `${e.scrollHeight}px`;
-    }))
-
-    function myFunc(e) {
-        e.style.height = 'auto';
-        e.style.height = `${e.scrollHeight}px`;
-    }
-</script>
-
-{% endblock %}

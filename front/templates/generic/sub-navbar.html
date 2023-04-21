@@ -1,3 +1,4 @@
+{% block stylesheets %}
 <style>
     /* Set color of text in subnavbar */
     .subnavbar {
@@ -5,8 +6,6 @@
         color: #fff;
         height: 42px;
         display: flex;
-        justify-content: center;
-        justify-content: flex-start;
         align-items: center;
         border: 1px solid #8c8c8c;
     }
@@ -32,7 +31,9 @@
     .right {
         margin-left: auto;
     }
-</style>
+</style>    
+{% endblock %}
+
 
 <nav class="subnavbar">
     <div class="sub-container">

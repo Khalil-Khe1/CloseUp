@@ -1,0 +1,36 @@
+.is{
+    height: 40px;
+    width: 40px;;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.is2{
+    height: 20px;
+    width: 20px;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+.is3{
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+.bi-nh,
+.blue-icon{
+    background-color: #1168be;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.blue-icon:hover{
+    background-color: #3690ea;
+}
+
+.round-icon{
+    border-radius: 999px;
+}
+

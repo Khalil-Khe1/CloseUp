@@ -1,3 +1,4 @@
+{% block stylesheets %}
 <style>
     .your-reply-comment {
         display: flex;
@@ -90,7 +91,8 @@
         background-color: #0f1756;
     }
 </style>
-{% block title%}
+{% endblock %}
+
 <div style="display: flex; flex-direction: column;" name="reprep" id="{{ node.key.id }}">
     <div class="your-reply-comment">
         {% load static %}
@@ -104,15 +106,13 @@
         </div>
     </div>
     {% if node.has_childs %}
-        {% for ch in node.child %}
-            {% with node=ch template_name='event/replies-display.html' %}
-                {% include template_name %}
-            {% endwith %}
-        {% endfor %}
+    {% for ch in node.child %}
+    {% with node=ch template_name='event/replies-display.html' %}
+    {% include template_name %}
+    {% endwith %}
+    {% endfor %}
     {% endif %}
     <div name="put-submit-here">
 
     </div>
 </div>
-
-{% endblock %}

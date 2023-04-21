@@ -13,6 +13,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     profile_img = models.CharField(max_length=255, default="default.png") 
+    verified = models.CharField(max_length=50, default="f")
 
     def convert_user(self) -> djUser:
         if self is not None:
@@ -42,7 +43,7 @@ class Event(models.Model):
 
 class Discussion(models.Model):
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, default=None, blank=True, null=True)
     title = models.CharField(max_length=50, default="", blank=True, null=True)
     content = models.TextField()
@@ -50,6 +51,16 @@ class Discussion(models.Model):
     item_type = models.CharField(max_length=50) #Announcement(Starter + Organizer), Starter, Reply 
     timestamp = models.TimeField()
     parent = models.ForeignKey('self', on_delete=models.CASCADE, default=None, blank=True, null=True)
+
+class Like(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Discussion, on_delete=models.CASCADE)
+
+class Views(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Discussion, on_delete=models.CASCADE)
 
 class Ticket(models.Model):
     id = models.AutoField(primary_key=True)
@@ -65,6 +76,11 @@ class Review(models.Model):
     rating = models.IntegerField()
     comment = models.TextField()
     created_at = models.DateField()
+
+class Follower(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, related_name='followers', on_delete=models.CASCADE)
+    follower = models.ForeignKey(User, related_name='following', on_delete=models.CASCADE)
 
 class Node:
      
